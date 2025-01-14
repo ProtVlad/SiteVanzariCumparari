@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>VanzariCumparari</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://accounts.google.com/gsi/client"></script>
+
+  <script>
+  function fixDiacritics(str) {
+    return decodeURIComponent(escape(str));
+  }
+
+  function decodeJWTToken(token) {
+    return JSON.parse(atob(token.split(".")[1]));
+  }
+
+  function handleCredentialResponse(response) {
+    const responsePayload = decodeJWTToken(response.credential);
+    console.log(responsePayload);
+
+    if (responsePayload) {
+      // Aplică funcția de corectare a diacriticelor
+      const fixedGivenName = fixDiacritics(responsePayload.given_name);
+      const fixedFamilyName = fixDiacritics(responsePayload.family_name);
+      const fixedName = fixDiacritics(responsePayload.name);
+
+
+      // Salvează în sessionStorage cu diacriticele corectate
+      sessionStorage.setItem("loggedInUser", JSON.stringify({
+        given_name: fixedGivenName,
+        family_name: fixedFamilyName,
+        email: responsePayload.email,
+        name: fixedName,
+        picture: responsePayload.picture
+      }));
+
+      // Redirecționează utilizatorul
+      window.location.href = "/dashboard";
+    } else {
+      console.error("Failed to decode JWT token.");
+    }
+  }
+
+  function handleSignout(){
+    google.accounts.id.disableAutoSelect();
+  }
+  </script>
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
