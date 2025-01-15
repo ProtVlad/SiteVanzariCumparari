@@ -1,0 +1,42 @@
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    margin-top: 30px;  /* Margine superioară pentru a muta inputul mai jos */
+  }
+  
+  .search-icon {
+    font-size: 18px;  /* Dimensiunea iconiței */
+    color: #555;  /* Culoarea iconiței */
+    margin-left: 10px;  /* Spațiu între iconiță și input */
+  }
+  
+  .search-input {
+    margin-left: 10px;  /* Adaugă un mic spațiu între iconiță și input */
+    padding: 10px;
+    font-size: 16px;
+    width: 300px;  /* Lățime fixă pentru input */
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;  /* Lățime maximă pentru input */
+    box-sizing: border-box;
+  }
+  
+  input:focus {
+    outline: none;
+    border-color: #4CAF50;  /* Culoare border când inputul este focusat */
+  }
+  
+  .search-container i {
+    margin-right: 10px; /* Adaugă o distanță mai mare pentru a nu fi lipit de input */
+  }
+  

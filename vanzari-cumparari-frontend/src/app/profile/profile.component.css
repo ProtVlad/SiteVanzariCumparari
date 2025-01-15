@@ -1,0 +1,83 @@
+/* Stiluri pentru centrul componentei pe orizontală */
+:host {
+  display: flex;
+  justify-content: center;  /* Centrează pe orizontală */
+  width: 100%;
+}
+
+/* Stilul pentru utilizatorul logat */
+.user-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  width: 400px;  /* Crește dimensiunea cardului */
+  margin: 20px;
+  position: relative;  /* Adăugăm position relative pentru a poziționa butonul corect */
+}
+
+.user-card:hover {
+  transform: translateY(-5px); /* Ușor ridicat la hover */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.profile-photo {
+  width: 100px;  /* Mărește dimensiunea imaginii */
+  height: 100px;
+  margin-right: 25px;  /* Ajustează spațierea */
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Stiluri pentru ceilalți utilizatori */
+.user-card.searched-user {
+  width: 100%;  /* Lățimea cardului ocupă aproape întregul ecran */
+  height: 60px;  /* Înălțimea este de aproximativ două ori mai mică decât pentru utilizatorul logat */
+  margin: 10px auto;  /* Margină pentru a le distribui pe pagină */
+  max-width: 900px;  /* Max-width pentru a evita ca să devină prea larg */
+  padding: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+/* Micșorarea imaginii pentru ceilalți utilizatori */
+.user-card.searched-user .profile-photo {
+  width: 60px;  /* Dimensiune mai mică pentru imagini */
+  height: 60px;
+}
+
+.user-card.searched-user .profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Stil pentru butonul View Products */
+.view-products-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  position: absolute;
+  right: 20px;
+  top: 50%; /* Așezăm butonul în mijloc pe verticală */
+  transform: translateY(-50%); /* Centrarea butonului pe verticală */
+}
+
+.view-products-btn:hover {
+  background-color: #45a049;
+}

@@ -1,0 +1,11 @@
+<div class="user-card" [ngClass]="{'searched-user': searchingUser}">
+  <div class="profile-photo">
+    <img [src]="user.picture" alt="{{user.name}}" />
+  </div>
+  <div class="user-info">
+    <h2>{{ user.name }}</h2>
+  </div>
+  <button *ngIf="searchingUser" class="view-products-btn">
+    Vezi produsele
+  </button>
+</div>

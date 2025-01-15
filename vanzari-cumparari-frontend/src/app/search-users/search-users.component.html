@@ -1,0 +1,17 @@
+<div class="search-container">
+    <div class="search-icon">
+        <i class="fas fa-search search-icon"></i>  <!-- Iconița de lupă -->
+    </div>
+    <input 
+      class="search-input"
+      type="text" 
+      [(ngModel)]="searchQuery"  
+      (input)="onSearch()"  
+      placeholder="Căutați utilizatori..." />
+  </div>
+
+<div class="user-list">
+  
+    <!-- Cardurile pentru utilizatori -->
+    <app-profile *ngFor="let user of filteredUsers" [user]="user" [searchingUser]="true"></app-profile>
+</div>
