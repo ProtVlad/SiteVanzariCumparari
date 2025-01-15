@@ -18,31 +18,45 @@
   }
 
   function handleCredentialResponse(response) {
-    const responsePayload = decodeJWTToken(response.credential);
-    console.log(responsePayload);
+      const responsePayload = decodeJWTToken(response.credential);
 
-    if (responsePayload) {
-      // Aplică funcția de corectare a diacriticelor
-      const fixedGivenName = fixDiacritics(responsePayload.given_name);
-      const fixedFamilyName = fixDiacritics(responsePayload.family_name);
-      const fixedName = fixDiacritics(responsePayload.name);
+      if (responsePayload) {
+        const fixedGivenName = fixDiacritics(responsePayload.given_name);
+        const fixedFamilyName = fixDiacritics(responsePayload.family_name);
+        const fixedName = fixDiacritics(responsePayload.name);
 
+        sessionStorage.setItem("loggedInUser", JSON.stringify({
+          given_name: fixedGivenName,
+          family_name: fixedFamilyName,
+          email: responsePayload.email,
+          name: fixedName,
+          picture: responsePayload.picture
+        }));
 
-      // Salvează în sessionStorage cu diacriticele corectate
-      sessionStorage.setItem("loggedInUser", JSON.stringify({
-        given_name: fixedGivenName,
-        family_name: fixedFamilyName,
-        email: responsePayload.email,
-        name: fixedName,
-        picture: responsePayload.picture
-      }));
+        console.log(response.credential);
 
-      // Redirecționează utilizatorul
-      window.location.href = "/dashboard";
-    } else {
-      console.error("Failed to decode JWT token.");
+        fetch('http://localhost:3000/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token: response.credential }),
+        })
+          .then(response2 => response2.json())
+          .then(data => {
+            if (data.success) {
+              //window.location.href = '/dashboard';
+            } else {
+              console.error("Autentificare eșuată");
+            }
+          })
+          .catch(error => {
+            console.error("Eroare la comunicarea cu serverul: ", error);
+          });
+      } else {
+        console.error("Failed to decode JWT token.");
+      }
     }
-  }
 
   function handleSignout(){
     google.accounts.id.disableAutoSelect();
