@@ -32,8 +32,9 @@
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${response.credential}`
       },
-      body: JSON.stringify({ token: response.credential }),
+      body: JSON.stringify({}),
     })
       .then(response2 => response2.json())
       .then(data => {
@@ -50,6 +51,7 @@
 
           // Salvează utilizatorul în sessionStorage
           sessionStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+          sessionStorage.setItem("token", response.credential);
 
           // Redirecționează utilizatorul către dashboard
           window.location.href = '/dashboard';

@@ -1,1 +1,33 @@
-<p>dashboard works!</p>
+<div class="search-container">
+    <div class="search-icon">
+      <i class="fas fa-search search-icon"></i>  <!-- Iconița de lupă -->
+    </div>
+    <input 
+      class="search-input"
+      type="text" 
+      [(ngModel)]="searchQuery"  
+      (input)="onSearch()"  
+      placeholder="Căutați produse..." />
+  </div>
+  
+  <div class="product-list">
+    <div *ngIf="filteredProducts.length === 0" class="no-products">
+      Nu există produse disponibile.
+    </div>
+  
+    <div class="card-container" *ngFor="let product of filteredProducts">
+      <mat-card class="product-card">
+        <mat-card-header>
+          <mat-card-title>{{ product.name }}</mat-card-title> <!-- Titlu -->
+        </mat-card-header>
+        <img mat-card-image [src]="'http://localhost:3000/' + product.image" alt="Imagine produs" /> <!-- Imagine -->
+        <mat-card-content>
+          <p>{{ product.publisher }}</p> <!-- Autor -->
+          <p><strong>Preț:</strong> {{ product.price | currency:'RON' }}</p> <!-- Preț -->
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">Mai multe detalii</button> <!-- Buton detalii -->
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>

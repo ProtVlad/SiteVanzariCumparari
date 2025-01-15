@@ -1,0 +1,44 @@
+<div class="form-container">
+  <!-- Formularul de adăugare/actualizare produs -->
+  <form class="add-product-form" (ngSubmit)="onSubmit()">
+    <mat-card>
+      <mat-card-title>{{ isEditMode ? 'Editează produsul' : 'Adaugă un produs nou' }}</mat-card-title>
+      <mat-card-content>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nume produs</mat-label>
+          <input matInput [(ngModel)]="product.name" name="name" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Descriere</mat-label>
+          <textarea matInput [(ngModel)]="product.description" name="description" required></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Preț</mat-label>
+          <input matInput type="number" [(ngModel)]="product.price" name="price" required min="0.01"/>
+        </mat-form-field>
+
+        <div class="image-upload-container">
+          <button mat-raised-button color="primary" (click)="fileInput.click()" type="button">Alege o imagine</button>
+          <input #fileInput type="file" (change)="onFileSelected($event)" hidden />
+          <span *ngIf="selectedFile">Fișier selectat: {{ selectedFile.name }}</span>
+        </div>
+        <div *ngIf="fileError" style="color: red; margin-top: 10px;">
+          {{ fileError }}
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!isFormValid()">
+          {{ isEditMode ? 'Actualizează produsul' : 'Adaugă produs' }}
+        </button>
+        <button mat-button type="reset">Resetează</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+
+  <!-- Div pentru preview imagine -->
+  <div class="image-preview-container">
+    <img [src]="previewUrl" *ngIf="previewUrl"/>
+  </div>
+</div>

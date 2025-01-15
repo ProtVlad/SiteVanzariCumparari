@@ -1,0 +1,52 @@
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 20px;
+  }
+  
+  .add-product-form {
+    flex: 1;
+    max-width: 50%;
+  }
+  
+  .image-preview-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    width: 320px;
+    height: 240px;
+  }
+  
+  .image-preview-container img {
+    width: 100%; /* Imaginea să ocupe toată lățimea */
+    height: 100%; /* Imaginea să ocupe toată înălțimea */
+    object-fit: cover; /* Ajustează imaginea pentru a umple div-ul fără a-i distorsiona proporțiile */
+    border-radius: 8px;
+  }
+  
+  
+  mat-form-field.full-width {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  mat-card {
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  mat-card-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  

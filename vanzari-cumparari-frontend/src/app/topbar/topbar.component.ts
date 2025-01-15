@@ -45,7 +45,7 @@ export class TopbarComponent implements OnInit {
   }
 
   goToProducts() {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/my-products']);
   }
 
   goToProfile() {
@@ -59,6 +59,7 @@ export class TopbarComponent implements OnInit {
   logout() {
     handleSignout();
     sessionStorage.removeItem("loggedInUser");
+    sessionStorage.removeItem("token");
     this.router.navigate(["/"]).then(()=>{
       window.location.reload();
     });

@@ -33,8 +33,5 @@ export class ProfileComponent {
     if (!this.user) {
       this.user = this.defaultUser;
     }
-    
-    console.log(this.searchingUser);
-    console.log("test");
   }
 }
