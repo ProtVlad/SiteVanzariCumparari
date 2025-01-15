@@ -5,7 +5,11 @@
   <div class="user-info">
     <h2>{{ user.name }}</h2>
   </div>
-  <button *ngIf="searchingUser" class="view-products-btn">
-    Vezi produsele
-  </button>
+
+  <!-- Verifică dacă ID-ul din URL nu coincide cu cel din sessionStorage -->
+  <div class="user-actions">
+    <button *ngIf="loggedUser && loggedUser.id !== user.id" class="view-products-btn" (click)="viewProducts()">
+      Vezi produsele
+    </button>
+  </div>
 </div>

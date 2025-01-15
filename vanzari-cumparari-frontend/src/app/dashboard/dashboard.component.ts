@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button'; // Pentru butoane
 import { MatInputModule } from '@angular/material/input'; // Pentru câmpul de căutare
 import { MatFormFieldModule } from '@angular/material/form-field'; // Pentru form field
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +21,17 @@ export class DashboardComponent {
     filteredProducts: any[] = []; // Utilizatori excluzând pe cel logat
     loggedUserId: string = ''; // ID-ul utilizatorului logat
   
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private router: Router) {}
+
+    goToProductDetails(productId: number): void {
+      // Redirecționează către /product-details/:id, unde :id este ID-ul produsului
+      this.router.navigate([`/product/${productId}`]);
+    }
+
+    goToProfile(userId: string): void {
+      // Navighează către profilul utilizatorului pe baza user_id
+      this.router.navigate(['/profile', userId]);
+    }
   
     ngOnInit(): void {
       this.loadLoggedUser(); // Încarcă detaliile utilizatorului logat
@@ -46,11 +57,11 @@ export class DashboardComponent {
             );
             this.filteredProducts = this.products; // Inițializăm lista filtrată
           } else {
-            console.error('Failed to load users, success flag is false.');
+            console.error('Failed to load products, success flag is false.');
           }
         },
         error: (err) => {
-          console.error('Error loading users:', err);
+          console.error('Error loading products:', err);
         }
       });
     }

@@ -1,0 +1,16 @@
+<div class="listing-container">
+    <div *ngFor="let product of products" class="product-card">
+      <div class="product-image">
+        <img [src]="'http://localhost:3000/' + product.image" alt="Product Image" />
+      </div>
+      <div class="product-details">
+        <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-description">{{ product.description }}</p>
+        <div class="product-price">
+          <span><strong>Price:</strong> {{ product.price | currency:'RON' }}</span>
+        </div>
+        <button class="view-details-btn" (click)="goToProductDetails(product.id)">Mai multe detalii</button>
+      </div>
+    </div>
+  </div>
+  

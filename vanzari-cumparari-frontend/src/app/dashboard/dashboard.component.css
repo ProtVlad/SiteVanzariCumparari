@@ -66,3 +66,13 @@
     margin-right: 10px; /* Adaugă o distanță mai mare pentru a nu fi lipit de input */
   }
   
+  .clickable {
+    color: #007bff; /* Culoare albastră, ca un link */
+    text-decoration: underline; /* Sublinează textul */
+    cursor: pointer; /* Arată că este clicabil */
+  }
+  
+  .clickable:hover {
+    color: #0056b3; /* Culoare mai închisă la hover */
+  }
+  

@@ -1,0 +1,14 @@
+/* Topbar care se află pe pagina de home (deasupra router-outlet) */
+.topbar-home {
+    position: fixed;  /* Poziționare fixă pentru a sta deasupra */
+    top: 0;
+    width: 100%;
+    z-index: 1000;  /* Asigură că este deasupra altor elemente */
+  }
+  
+  /* Topbar care se află pe alte pagini (împins jos) */
+  .topbar-other {
+    position: relative;  /* Lăsăm topbar-ul să se miște împreună cu conținutul */
+    margin-top: 80px;  /* Poți ajusta această valoare în funcție de înălțimea topbar-ului */
+  }
+  

@@ -49,7 +49,15 @@ export class TopbarComponent implements OnInit {
   }
 
   goToProfile() {
-    this.router.navigate(['/profile']);
+    // Obține obiectul loggedInUser din sessionStorage și îl parsează
+    const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser') || '{}');
+    
+    // Verifică dacă loggedInUser și id-ul există
+    if (loggedInUser && loggedInUser.id) {
+      this.router.navigate(['/profile', loggedInUser.id]);
+    } else {
+      console.error("User ID not found in sessionStorage.");
+    }
   }
 
   goToSearchUsers() {

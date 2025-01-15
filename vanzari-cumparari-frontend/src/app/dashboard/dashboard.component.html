@@ -22,12 +22,16 @@
         </mat-card-header>
         <img mat-card-image [src]="'http://localhost:3000/' + product.image" alt="Imagine produs" /> <!-- Imagine -->
         <mat-card-content>
-          <p>{{ product.publisher }}</p> <!-- Autor -->
+          <!-- Publisher cu stilizare pentru a sugera că este clicabil -->
+          <p class="clickable" (click)="goToProfile(product.user_id)">
+            {{ product.publisher }}
+          </p>
           <p><strong>Preț:</strong> {{ product.price | currency:'RON' }}</p> <!-- Preț -->
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button color="primary">Mai multe detalii</button> <!-- Buton detalii -->
+          <button mat-raised-button color="primary" (click)="goToProductDetails(product.id)">Mai multe detalii</button> <!-- Buton detalii -->
         </mat-card-actions>
       </mat-card>
     </div>
   </div>
+  

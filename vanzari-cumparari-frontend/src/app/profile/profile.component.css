@@ -8,16 +8,16 @@
 /* Stilul pentru utilizatorul logat */
 .user-card {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: row;  /* Așezăm elementele pe orizontală (poză + text) */
+  align-items: center;  /* Aliniem pe verticală */
+  justify-content: space-between;  /* Asigurăm că elementele sunt distribuite pe toată lățimea cardului */
   background-color: #fff;
-  padding: 30px;
+  padding: 20px;
   border-radius: 15px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   width: 400px;  /* Crește dimensiunea cardului */
   margin: 20px;
-  position: relative;  /* Adăugăm position relative pentru a poziționa butonul corect */
 }
 
 .user-card:hover {
@@ -28,7 +28,7 @@
 .profile-photo {
   width: 100px;  /* Mărește dimensiunea imaginii */
   height: 100px;
-  margin-right: 25px;  /* Ajustează spațierea */
+  margin-right: 20px;  /* Adăugăm spațiu între poză și text */
   overflow: hidden;
   border-radius: 50%;
   border: 2px solid #e0e0e0;
@@ -72,12 +72,18 @@
   font-size: 14px;
   cursor: pointer;
   border-radius: 5px;
-  position: absolute;
-  right: 20px;
-  top: 50%; /* Așezăm butonul în mijloc pe verticală */
-  transform: translateY(-50%); /* Centrarea butonului pe verticală */
+  margin-left: 20px; /* Spațiu între text și buton */
+  /* Pentru a alinia butonul la dreapta */
+  align-self: center;  /* Centrăm butonul pe verticală */
 }
 
+/* Adăugăm stil pentru alinierea textului la stânga */
+.user-info {
+  text-align: left;  /* Aliniem textul la stânga */
+  flex-grow: 1;  /* Permite ca textul să ocupe restul spațiului disponibil */
+}
+
+/* Hover pentru buton */
 .view-products-btn:hover {
   background-color: #45a049;
 }

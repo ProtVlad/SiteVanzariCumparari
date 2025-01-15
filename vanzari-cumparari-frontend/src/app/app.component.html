@@ -1,2 +1,2 @@
-<app-topbar></app-topbar>
-<router-outlet />
+<app-topbar [ngClass]="{'topbar-home': isHomePage, 'topbar-other': !isHomePage}"></app-topbar>
+<router-outlet></router-outlet>

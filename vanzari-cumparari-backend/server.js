@@ -197,13 +197,31 @@ app.get('/products/:id', async (req, res) => {
   try {
     const result = await db.query('SELECT * FROM products WHERE id = $1', [id]);
 
-    if (result.rows.length === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ success: false, message: 'Produsul nu a fost găsit' });
     }
 
     res.json({ success: true, product: result.rows[0] }); // Returnăm produsul găsit
   } catch (error) {
     console.error('Eroare la obținerea produsului:', error);
+    res.status(500).json({ success: false, message: 'Eroare de server' });
+  }
+});
+
+app.get('/users/:id', async (req, res) => {
+  const { id } = req.params; // Preluăm ID-ul produsului din URL
+
+  try {
+    const result = await db.query('SELECT * FROM users WHERE id = $1', [id]);
+    console.log(result);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ success: false, message: 'Utilizatorul nu a fost găsit' });
+    }
+
+    res.json({ success: true, user: result.rows[0] }); // Returnăm produsul găsit
+  } catch (error) {
+    console.error('Eroare la obținerea Utilizatorului:', error);
     res.status(500).json({ success: false, message: 'Eroare de server' });
   }
 });
@@ -294,6 +312,65 @@ app.delete('/products', async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error' });
   }
 });
+
+app.post('/comments', async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+
+  if (!token) {
+    return res.status(400).json({ success: false, message: 'Token missing' });
+  }
+
+  const { description, product_id, user_id } = req.body;
+  // Validare date
+  if (!description || !product_id || !user_id) {
+    return res.status(400).json({ success: false, message: 'Missing fields' });
+  }
+
+  try {
+    // Interogare SQL pentru a adăuga comentariul
+    const result = await db.query(
+      `INSERT INTO comments (description, created, product_id, user_id) 
+       VALUES ($1, NOW(), $2, $3) RETURNING *`,
+      [description, product_id, user_id]
+    );
+
+    res.status(201).json({
+      success: true,
+      message: 'Comment added successfully',
+      comment: result.rows[0], // returnăm comentariul adăugat
+    });
+  } catch (error) {
+    console.error('Error inserting comment:', error);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+app.get('/comments/:productId', async (req, res) => {
+  const { productId } = req.params; // Preluăm ID-ul produsului din URL
+
+  try {
+    const result = await db.query('SELECT comments.id, comments.description, comments.created, comments.user_id, users.name, users.picture FROM comments JOIN users ON comments.user_id = users.id WHERE product_id = $1 ORDER BY comments.created DESC;', [productId]);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Nu există comentarii pentru acest produs' 
+      });
+    }
+
+    res.json({ 
+      success: true, 
+      comments: result.rows // Returnăm toate comentariile pentru produs
+    });
+  } catch (error) {
+    console.error('Eroare la obținerea comentariilor:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Eroare de server' 
+    });
+  }
+});
+
 
 
 // Pornire server

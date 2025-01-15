@@ -1,0 +1,84 @@
+.listing-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: space-around;
+  }
+  
+  .product-card {
+    display: flex;
+    flex-direction: row; /* Aranjăm imaginea și detaliile pe orizontală */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 300px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .product-image {
+    flex-shrink: 0; /* Evităm ca imaginea să se micșoreze */
+    width: 120px; /* Lățimea imaginii */
+    height: 120px; /* Înălțimea imaginii */
+    overflow: hidden;
+  }
+  
+  .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asigurăm că imaginea va acoperi spațiul disponibil */
+  }
+  
+  .product-details {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1; /* Detaliile vor ocupa restul de spațiu disponibil */
+  }
+  
+  .product-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .product-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+    height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .product-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ff4500;
+    margin-bottom: 15px;
+  }
+  
+  .view-details-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .view-details-btn:hover {
+    background-color: #0056b3;
+  }
+  

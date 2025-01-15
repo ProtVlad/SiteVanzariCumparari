@@ -6,6 +6,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { MyProductsComponent } from './my-products/my-products.component';
+import { ListingComponent } from './listing/listing.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 export const routes: Routes = [
   // Ruta pentru pagina de login
@@ -14,7 +16,7 @@ export const routes: Routes = [
   // Ruta pentru dashboard
   { path: 'dashboard', component: DashboardComponent },
 
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile/:userId', component: ProfileComponent },
 
   { path: 'search-users', component: SearchUsersComponent },
 
@@ -22,8 +24,11 @@ export const routes: Routes = [
 
   { path: 'edit-product/:id', component: AddProductComponent },
 
+  { path: 'listing/:userId', component: ListingComponent },
+
   { path: 'my-products', component: MyProductsComponent },
 
+  { path: 'product/:productId', component: ProductDetailsComponent },
   // Ruta pentru eroare (404)
   { path: 'error', component: ErrorComponent },
 

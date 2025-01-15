@@ -1,0 +1,99 @@
+/* Containerul principal al detaliilor produsului */
+.product-details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;  /* Aliniază la stânga */
+    padding: 20px 40px; /* Mai puțin padding pentru a aduce conținutul mai aproape de margine */
+    max-width: 900px; /* Lățime mai mică */
+  }
+  
+  /* Detalii despre produs */
+  .product-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; /* Aliniere pe orizontală */
+    align-items: flex-start;
+    margin-bottom: 30px;
+  }
+  
+/* Poza produsului */
+.product-image {
+    width: 250px; /* Dimensiuni mai mari pentru imagine */
+    height: auto; /* Înălțimea se ajustează proporțional cu lățimea */
+    margin-right: 20px; /* Spațiu între imagine și detalii */
+}
+
+.product-image img {
+    width: 100%; /* Imaginea ocupă întreaga lățime a containerului */
+    height: auto; /* Păstrează proporțiile originale */
+    border-radius: 8px; /* Colțuri rotunjite */
+    object-fit: contain; /* Asigură afișarea completă a imaginii */
+    background-color: #f9f9f9; /* Adaugă un fundal deschis dacă imaginea nu umple containerul */
+}
+  
+  /* Detaliile produsului */
+  .product-info {
+    max-width: 600px; /* Lățimea maximă a detaliilor */
+  }
+  
+  .product-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  
+  .product-info p {
+    font-size: 1.1rem;
+    margin: 5px 0;
+  }
+  
+  .product-info .price {
+    font-size: 1.5rem;
+    color: green;
+  }
+  
+  .comments-section {
+  margin-top: 30px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.comments-section h3 {
+  margin-bottom: 15px;
+}
+
+.comment {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+
+.comment-meta {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.add-comment {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.add-comment textarea {
+  width: 100%;
+  resize: none;
+  margin-bottom: 10px;
+}
+
+.add-comment button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.add-comment button:hover {
+  background-color: #0056b3;
+}
