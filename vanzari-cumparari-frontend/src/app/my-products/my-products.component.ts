@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ProductService } from '../services/product-services/product.service';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user-services/user.service';
 
 
 @Component({
@@ -18,22 +19,13 @@ import { Router } from '@angular/router';
 export class MyProductsComponent {
   searchQuery: string = '';
   products: Product[] = []; // Toate produsele
-  loggedUserId: string = ''; // ID-ul utilizatorului logat
+  loggedUserId: string | null = null; // ID-ul utilizatorului logat
 
-  constructor(private http: HttpClient, private productService: ProductService, private router: Router) { }
+  constructor(private http: HttpClient, private productService: ProductService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.loadLoggedUser(); // Încarcă detaliile utilizatorului logat
+    this.loggedUserId = this.userService.getLoggedUserId();
     this.loadProducts(); // Încarcă utilizatorii
-  }
-
-  // Funcția care încarcă utilizatorul logat din sessionStorage
-  loadLoggedUser(): void {
-    const loggedUserData = sessionStorage.getItem('loggedInUser');
-    if (loggedUserData) {
-      const loggedUser = JSON.parse(loggedUserData);
-      this.loggedUserId = loggedUser.id; // Salvează ID-ul utilizatorului logat
-    }
   }
 
   // Funcția care încarcă toate produsele
@@ -72,5 +64,9 @@ export class MyProductsComponent {
 
   goToEditProduct(productId: number) {
     this.router.navigate(['/edit-product', productId]);
+  }
+
+  goToProductDetails(productId: number): void {
+    this.router.navigate([`/product/${productId}`]);
   }
 }

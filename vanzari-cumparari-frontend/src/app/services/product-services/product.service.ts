@@ -38,6 +38,7 @@ export class ProductService {
     formData.append('name', updatedProduct.name);
     formData.append('description', updatedProduct.description);
     formData.append('price', updatedProduct.price.toString());
+    formData.append('tag', updatedProduct.tag);
     
     // Adăugăm fișierul dacă există
     if (updatedFile) {

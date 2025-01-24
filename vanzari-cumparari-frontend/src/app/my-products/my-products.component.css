@@ -60,3 +60,12 @@
     padding: 8px 16px;
   }
   
+  .title {
+    color: #007bff; /* Culoare albastră, ca un link */
+    text-decoration: underline; /* Sublinează textul */
+    cursor: pointer; /* Arată că este clicabil */
+  }
+  
+  .title:hover {
+    color: #0056b3; /* Culoare mai închisă la hover */
+  }

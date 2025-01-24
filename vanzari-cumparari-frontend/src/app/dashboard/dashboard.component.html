@@ -9,6 +9,12 @@
       (input)="onSearch()"  
       placeholder="Căutați produse..." />
   </div>
+
+  <!-- Dropdown pentru afișarea tag-urilor -->
+  <select [(ngModel)]="selectedTag" (change)="onSearch()" class="tag-dropdown">
+    <option value="">Toate</option> <!-- Opțiune pentru a afișa toate produsele -->
+    <option *ngFor="let tag of tags" [value]="tag">{{ tag }}</option>
+  </select>
   
   <div class="product-list">
     <div *ngIf="filteredProducts.length === 0" class="no-products">

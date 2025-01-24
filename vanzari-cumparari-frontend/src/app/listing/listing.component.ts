@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Product } from '../models/product.model';
 
 @Component({
   selector: 'app-listing',
@@ -11,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './listing.component.css'
 })
 export class ListingComponent {
-  products: any[] = [];
+  products: Product[] = [];
 
   constructor(
     private route: ActivatedRoute,

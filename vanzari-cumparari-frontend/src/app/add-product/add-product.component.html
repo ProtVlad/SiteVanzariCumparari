@@ -19,6 +19,12 @@
           <input matInput type="number" [(ngModel)]="product.price" name="price" required min="0.01"/>
         </mat-form-field>
 
+        <!-- Câmp pentru Tag -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Tag</mat-label>
+          <input matInput [(ngModel)]="product.tag" name="tag" required placeholder="Introdu un tag pentru produs" />
+        </mat-form-field>
+
         <div class="image-upload-container">
           <button mat-raised-button color="primary" (click)="fileInput.click()" type="button">Alege o imagine</button>
           <input #fileInput type="file" (change)="onFileSelected($event)" hidden />

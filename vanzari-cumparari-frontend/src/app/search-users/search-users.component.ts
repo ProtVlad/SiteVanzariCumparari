@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ProfileComponent } from '../profile/profile.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UserService } from '../services/user-services/user.service';
 
 @Component({
   selector: 'app-search-users',
@@ -15,22 +16,13 @@ export class SearchUsersComponent implements OnInit {
   searchQuery: string = '';
   users: any[] = []; // Toți utilizatorii
   filteredUsers: any[] = []; // Utilizatori excluzând pe cel logat
-  loggedUserId: string = ''; // ID-ul utilizatorului logat
+  loggedUserId: string | null = null; // ID-ul utilizatorului logat
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private userService: UserService) {}
 
   ngOnInit(): void {
-    this.loadLoggedUser(); // Încarcă detaliile utilizatorului logat
+    this.loggedUserId = this.userService.getLoggedUserId();
     this.loadUsers(); // Încarcă utilizatorii
-  }
-
-  // Funcția care încarcă utilizatorul logat din sessionStorage
-  loadLoggedUser(): void {
-    const loggedUserData = sessionStorage.getItem('loggedInUser');
-    if (loggedUserData) {
-      const loggedUser = JSON.parse(loggedUserData);
-      this.loggedUserId = loggedUser.id; // Salvează ID-ul utilizatorului logat
-    }
   }
 
   // Funcția care încarcă toți utilizatorii

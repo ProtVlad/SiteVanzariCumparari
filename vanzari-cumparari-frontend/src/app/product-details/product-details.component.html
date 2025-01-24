@@ -17,7 +17,7 @@
     <h3>Comentarii</h3>
   <!-- Formular pentru adăugarea unui comentariu nou -->
   <div class="add-comment">
-    <textarea [(ngModel)]="newComment" placeholder="Adresați o întrebare vânzătorului..." rows="3"></textarea>
+    <textarea [(ngModel)]="newComment" [placeholder]="placeholderText" rows="3"></textarea>
     <button (click)="submitComment()">Trimite</button>
   </div>
     <!-- Lista comentariilor -->

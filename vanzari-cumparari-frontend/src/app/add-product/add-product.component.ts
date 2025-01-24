@@ -27,7 +27,7 @@ import { ActivatedRoute } from '@angular/router';
   providers: [ProductService]
 })
 export class AddProductComponent {
-  product: Product = new Product(0, '', '', '', 0, 0); // Inițializare cu valori implicite
+  product: Product = new Product(0, '', '', '', 0, 0, ''); // Inițializare cu valori implicite
   selectedFile: File | null = null;
   previewUrl: string | null = null;
   fileError: string = '';
@@ -45,16 +45,10 @@ export class AddProductComponent {
 
   loadProductForEdit(productId: number): void {
     this.productService.getProductById(productId).subscribe({
-      next: (product: Product) => {
-        this.product = new Product(
-          product.id,
-          product.name,
-          product.description,
-          product.image,
-          product.price,
-          product.user_id
-        );
-        this.previewUrl = product.image; // Dacă ai un URL pentru imagine
+      next: (response: any) => {
+        this.product = response.product;
+        console.log(this.product);
+        //this.previewUrl = this.product.image; // Dacă ai un URL pentru imagine
       },
       error: (err) => console.error('Eroare la încărcarea produsului:', err),
     });
@@ -86,6 +80,7 @@ export class AddProductComponent {
     return (
       this.product.name?.trim() !== '' &&
       this.product.description?.trim() !== '' &&
+      this.product.tag?.trim() !== '' &&
       this.product.price > 0 &&
       this.selectedFile !== null &&
       this.fileError === ''
@@ -104,6 +99,7 @@ export class AddProductComponent {
     formData.append('description', this.product.description);
     formData.append('price', this.product.price.toString());
     formData.append('user_id', userId);
+    formData.append('tag', this.product.tag)
   
     if (this.isEditMode && this.productId) {
       // În loc să trimiți formData, trimitem cei trei parametri

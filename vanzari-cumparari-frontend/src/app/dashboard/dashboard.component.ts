@@ -7,6 +7,8 @@ import { MatInputModule } from '@angular/material/input'; // Pentru câmpul de c
 import { MatFormFieldModule } from '@angular/material/form-field'; // Pentru form field
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Product } from '../models/product.model';
+import { UserService } from '../services/user-services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,11 +19,13 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent {
     searchQuery: string = '';
-    products: any[] = []; // Toate produsele
+    selectedTag: string = '';
+    products: Product[] = []; // Toate produsele
     filteredProducts: any[] = []; // Utilizatori excluzând pe cel logat
-    loggedUserId: string = ''; // ID-ul utilizatorului logat
+    loggedUserId: string | null = null; // ID-ul utilizatorului logat
+    tags: string[] = [];
   
-    constructor(private http: HttpClient, private router: Router) {}
+    constructor(private http: HttpClient, private router: Router, private userService: UserService) {}
 
     goToProductDetails(productId: number): void {
       // Redirecționează către /product-details/:id, unde :id este ID-ul produsului
@@ -34,17 +38,18 @@ export class DashboardComponent {
     }
   
     ngOnInit(): void {
-      this.loadLoggedUser(); // Încarcă detaliile utilizatorului logat
+      this.loggedUserId = this.userService.getLoggedUserId();
       this.loadProducts(); // Încarcă utilizatorii
+      this.fetchTags();
     }
-  
-    // Funcția care încarcă utilizatorul logat din sessionStorage
-    loadLoggedUser(): void {
-      const loggedUserData = sessionStorage.getItem('loggedInUser');
-      if (loggedUserData) {
-        const loggedUser = JSON.parse(loggedUserData);
-        this.loggedUserId = loggedUser.id; // Salvează ID-ul utilizatorului logat
-      }
+
+    fetchTags() {
+      this.http.get<{ success: boolean; tags: string[] }>('http://localhost:3000/tags')
+        .subscribe(response => {
+          if (response.success) {
+            this.tags = response.tags; // Populăm lista de tag-uri
+          }
+        });
     }
   
     // Funcția care încarcă toate produsele
@@ -67,12 +72,16 @@ export class DashboardComponent {
     }
     
     onSearch(): void {
-      if (this.searchQuery.trim() === '') {
-        this.filteredProducts = this.products;  // Dacă nu există text, afișăm toți utilizatorii
-      } else {
-        this.filteredProducts = this.products.filter(product =>
-          product.name.toLowerCase().includes(this.searchQuery.toLowerCase())
-        );
-      }
+      // Filtrăm produsele pe baza căutării și a tag-ului
+      this.filteredProducts = this.products.filter(product => {
+        // Filtrarea pe baza numelui produsului
+        const matchesSearch = product.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+
+        // Filtrarea pe baza tag-ului
+        const matchesTag = this.selectedTag ? product.tag.includes(this.selectedTag) : true;
+
+        // Returnează produsul doar dacă ambele condiții sunt adevărate
+        return matchesSearch && matchesTag;
+      });
     }
 }

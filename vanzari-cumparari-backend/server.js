@@ -165,19 +165,19 @@ app.post('/products', upload.single('file'), async (req, res) => {
     return res.status(400).json({ success: false, message: 'Token missing' });
   }
 
-  const { name, description, price, user_id } = req.body;
+  const { name, description, price, user_id, tag } = req.body;
   const filePath = req.file.path; // Calea fișierului pe server
 
   // Validare date
-  if (!name || !description || !price || !filePath || !user_id) {
+  if (!name || !description || !price || !filePath || !user_id || !tag) {
     return res.status(400).json({ success: false, message: 'Missing fields' });
   }
 
   try {
     // Interogare SQL pentru a adăuga produsul
     const result = await db.query(
-      'INSERT INTO products (name, description, price, image, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [name, description, price, filePath, user_id]
+      'INSERT INTO products (name, description, price, image, user_id, tag) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+      [name, description, price, filePath, user_id, tag]
     );
 
     res.status(201).json({
@@ -208,6 +208,8 @@ app.get('/products/:id', async (req, res) => {
   }
 });
 
+
+
 app.get('/users/:id', async (req, res) => {
   const { id } = req.params; // Preluăm ID-ul produsului din URL
 
@@ -234,11 +236,11 @@ app.put('/products/:id', upload.single('file'), async (req, res) => {
   }
 
   const { id } = req.params; // ID-ul produsului din URL
-  const { name, description, price } = req.body; // Datele din corpul cererii
+  const { name, description, price, tag } = req.body; // Datele din corpul cererii
   const filePath = req.file ? req.file.path : null; // Fișierul încărcat
 
   // Validare date
-  if (!name || !description || !price) {
+  if (!name || !description || !price || !tag) {
     return res.status(400).json({ success: false, message: 'Missing fields' });
   }
 
@@ -252,8 +254,8 @@ app.put('/products/:id', upload.single('file'), async (req, res) => {
     // Actualizare a produsului
     const updateQuery = `
       UPDATE products
-      SET name = $1, description = $2, price = $3, image = $4
-      WHERE id = $5
+      SET name = $1, description = $2, price = $3, image = $4, tag = $5
+      WHERE id = $6
       RETURNING *`;
 
     const updateValues = [
@@ -261,6 +263,7 @@ app.put('/products/:id', upload.single('file'), async (req, res) => {
       description, 
       price, 
       filePath,  // Actualizăm cu calea fișierului încărcat
+      tag,
       id
     ];
 
@@ -371,7 +374,30 @@ app.get('/comments/:productId', async (req, res) => {
   }
 });
 
+// Endpoint pentru preluarea tuturor tag-urilor
+app.get('/tags', async (req, res) => {
+  try {
+    const result = await db.query('SELECT DISTINCT tag FROM products');
 
+    if (result.rowCount === 0) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Nu există tag-uri disponibile' 
+      });
+    }
+
+    res.json({ 
+      success: true, 
+      tags: result.rows.map(row => row.tag) // Extragem doar valorile tag-urilor într-un array simplu
+    });
+  } catch (error) {
+    console.error('Eroare la obținerea tag-urilor:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Eroare de server' 
+    });
+  }
+});
 
 // Pornire server
 app.listen(port, () => {

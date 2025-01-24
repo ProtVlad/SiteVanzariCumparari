@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UserService } from '../services/user-services/user.service';
 
 @Component({
   selector: 'app-product-details',
@@ -16,18 +17,30 @@ export class ProductDetailsComponent implements OnInit {
   user: string = '';  // Numele utilizatorului care a postat produsul
   comments: any[] = [];  // Lista comentariilor pentru produs
   newComment: string = '';  // Textul comentariului nou
+  loggedUserId: string | null = null;
+  placeholderText: string = ''; // Placeholder-ul pentru textarea
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
+    this.loggedUserId = this.userService.getLoggedUserId();
     const productId = this.route.snapshot.paramMap.get('productId'); // ID-ul produsului din URL
 
     if (productId) {
       this.fetchProductDetails(productId);  // Obține detaliile produsului
-      this.fetchComments(productId);  // Obține comentariile pentru produs
+    }
+
+  }
+
+  updatePlaceholder(): void {
+    if (this.loggedUserId == this.product.user_id) {
+      this.placeholderText = 'Răspunde cumpărătorilor...';
+    } else {
+      this.placeholderText = 'Adresați o întrebare vânzătorului...';
     }
   }
 
@@ -43,6 +56,8 @@ export class ProductDetailsComponent implements OnInit {
 
           // Obține comentariile pentru produs
           this.fetchComments(productId);
+
+          this.updatePlaceholder();
         }
       },
       (error) => {

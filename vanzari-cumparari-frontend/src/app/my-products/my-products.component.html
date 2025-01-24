@@ -1,17 +1,16 @@
 <div class="my-products-container">
-    <div class="product-card" *ngFor="let product of products">
-      <img [src]="'http://localhost:3000/' + product.image" alt="{{ product.name }}" />
-  
-      <div class="product-details">
-        <div class="title">{{ product.name }}</div>
-        <div class="description">{{ product.description }}</div>
-        <div class="price">{{ product.price | currency:'RON' }}</div>
-  
-        <div class="actions">
-          <button mat-raised-button color="primary" (click)="goToEditProduct(product.id)">Editează</button>
-          <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">Șterge</button>
-        </div>
+  <div class="product-card" *ngFor="let product of products">
+    <img [src]="'http://localhost:3000/' + product.image" alt="{{ product.name }}" />
+
+    <div class="product-details">
+      <div class="title" (click)="goToProductDetails(product.id)">{{ product.name }}</div>
+      <div class="description">{{ product.description }}</div>
+      <div class="price">{{ product.price | currency:'RON' }}</div>
+
+      <div class="actions">
+        <button mat-raised-button color="primary" (click)="goToEditProduct(product.id)">Editează</button>
+        <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">Șterge</button>
       </div>
     </div>
   </div>
-  
+</div>
